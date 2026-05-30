@@ -67,6 +67,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 # define MVD_PEXT1_HIDDEN_MESSAGES   (1 <<  5) // dem_multiple(0) packets are in format (<length> <type-id>+ <packet-data>)*
 //# define MVD_PEXT1_SERVERSIDEWEAPON2 (1 <<  6) // Server-side weapon selection supports clc_mvd_weapon_full_impulse.
 												 // Can be defined in a project Makefile
+# define MVD_PEXT1_PREDICTED_HOOK  (1 <<  7) // Server-owned grappling hook state for client prediction.
 
 # if defined(MVD_PEXT1_DEBUG_ANTILAG) || defined(MVD_PEXT1_DEBUG_WEAPON)
 #  define MVD_PEXT1_DEBUG
@@ -226,6 +227,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define svc_serverinfo			52		// serverinfo
 #define svc_updatepl			53		// [byte] [byte]
 #define svc_nails2				54		// [byte] num [52 bits] nxyzpy 8 12 12 12 4 8
+#define svc_mvd_hookstate		55		// MVD_PEXT1_PREDICTED_HOOK: [byte] count, hookstate_t*
 										// mvdsv extended svcs (for mvd playback)
 #ifdef FTE_PEXT_MODELDBL
 # define	svc_fte_modellistshort	60	// [strings]
@@ -611,6 +613,22 @@ typedef struct {
 #define MVDHIDDEN_SSWEAPON_FORGETORDER   64
 
 #endif // MVD_PEXT1_HIDDEN_MESSAGES
+
+//==============================================
+
+#ifdef MVD_PEXT1_PREDICTED_HOOK
+enum {
+	mvd_hook_inactive = 0,
+	mvd_hook_thrown,
+	mvd_hook_anchored,
+	mvd_hook_retracting,
+	mvd_hook_cooldown
+};
+
+// playernum, state, hook_origin[3], anchor_origin[3], hook_time, initial_length,
+// initial_radial_speed, initial_tangential_speed, initial_speed, tension, awaytime
+#define sizeof_mvd_hookstate_t (1 + 1 + 12 + 12 + 4 + 4 + 4 + 4 + 4 + 4 + 4)
+#endif // MVD_PEXT1_PREDICTED_HOOK
 
 //==============================================
 
