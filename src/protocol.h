@@ -67,7 +67,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 # define MVD_PEXT1_HIDDEN_MESSAGES   (1 <<  5) // dem_multiple(0) packets are in format (<length> <type-id>+ <packet-data>)*
 //# define MVD_PEXT1_SERVERSIDEWEAPON2 (1 <<  6) // Server-side weapon selection supports clc_mvd_weapon_full_impulse.
 												 // Can be defined in a project Makefile
-# define MVD_PEXT1_PREDICTED_HOOK  (1 <<  7) // Server-owned grappling hook state for client prediction.
+# define MVD_PEXT1_PREDICTED_HOOK  (1 <<  7) // Server-replicated grappling hook state for client prediction.
 
 # if defined(MVD_PEXT1_DEBUG_ANTILAG) || defined(MVD_PEXT1_DEBUG_WEAPON)
 #  define MVD_PEXT1_DEBUG
