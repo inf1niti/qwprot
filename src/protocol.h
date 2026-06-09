@@ -227,7 +227,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define svc_serverinfo			52		// serverinfo
 #define svc_updatepl			53		// [byte] [byte]
 #define svc_nails2				54		// [byte] num [52 bits] nxyzpy 8 12 12 12 4 8
-#define svc_mvd_hookstate		55		// MVD_PEXT1_PREDICTED_HOOK: [byte] count, hookstate_t*
+#define svc_mvd_hookstate		55		// MVD_PEXT1_PREDICTED_HOOK: [byte] count, hook records
 										// mvdsv extended svcs (for mvd playback)
 #ifdef FTE_PEXT_MODELDBL
 # define	svc_fte_modellistshort	60	// [strings]
@@ -625,9 +625,16 @@ enum {
 	mvd_hook_cooldown
 };
 
-// playernum, state, hook_origin[3], anchor_origin[3], hook_time, initial_length,
-// initial_radial_speed, initial_tangential_speed, initial_speed, tension, awaytime
-#define sizeof_mvd_hookstate_t (1 + 1 + 12 + 12 + 4 + 4 + 4 + 4 + 4 + 4 + 4)
+enum {
+	mvd_hook_record_full = 1,
+	mvd_hook_record_update,
+	mvd_hook_record_clear
+};
+
+enum {
+	mvd_hook_flag_stealth = 1 << 0,
+	mvd_hook_flag_custom_model = 1 << 1
+};
 #endif // MVD_PEXT1_PREDICTED_HOOK
 
 //==============================================
