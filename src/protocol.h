@@ -628,7 +628,8 @@ enum {
 enum {
 	mvd_hook_record_full = 1,
 	mvd_hook_record_update,
-	mvd_hook_record_clear
+	mvd_hook_record_clear,
+	mvd_hook_record_owner_state
 };
 
 enum {
